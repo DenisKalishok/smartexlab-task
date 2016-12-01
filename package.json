@@ -1,0 +1,43 @@
+{
+  "name": "smartexlab-task",
+  "private": false,
+  "version": "0.0.1",
+  "description": "smartexlab test task for Javascript",
+  "keywords": [],
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "6.3.6",
+    "bower": "1.8.0",
+    "colors": "1.1.2",
+    "del": "2.2.0",
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.0",
+    "gulp-copy": "0.0.2",
+    "gulp-ejsmin": "0.0.1",
+    "gulp-flatten": "0.2.0",
+    "gulp-if": "2.0.1",
+    "gulp-inject": "4.0.0",
+    "gulp-jshint": "2.0.0",
+    "gulp-minify-html": "1.0.6",
+    "gulp-ng-html2js": "0.2.2",
+    "gulp-order": "1.1.1",
+    "gulp-postcss": "6.1.1",
+    "gulp-rename": "1.2.2",
+    "gulp-sass": "2.3.1",
+    "gulp-uglify": "1.5.3",
+    "gulp-wrap": "0.12.0",
+    "jshint": "2.9.2",
+    "jshint-stylish": "2.2.0",
+    "merge2": "1.0.2",
+    "run-sequence": "1.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:volegg/smartexlab-task.git"
+  },
+  "author": "olegg",
+  "license": "MIT"
+}
