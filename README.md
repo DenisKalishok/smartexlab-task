@@ -14,5 +14,9 @@ smartexlab test task for Javascript
 
 1. Clone repository
 1. open smartexlab-task folder: `$ cd smartexlab-task`
-1. execute `$ npm install`
-1. open `index.html`
+1. execute 
+
+        npm install
+        npm build
+        
+1. open `dist/index.html` in browser or IDE

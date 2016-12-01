@@ -3,6 +3,7 @@ angular
         'ngRoute',
         'ui.bootstrap',
 
+        'templates',
         'users'
     ])
     .config(['$logProvider', '$locationProvider', '$routeProvider', config])
