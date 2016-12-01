@@ -1,0 +1,31 @@
+{
+  "asi": true,
+  "bitwise": false,
+  "browser": true,
+  "curly": true,
+  "devel": true,
+  "eqeqeq": true,
+  "esversion": 6,
+  "expr": true,
+  "forin": true,
+  "immed": true,
+  "indent": 4,
+  "latedef": "nofunc",
+  "maxdepth": 3,
+  "maxlen": 120,
+  "moz": true,
+  "noarg": true,
+  "noempty": true,
+  "node": true,
+  "nonbsp": true,
+  "nonew": true,
+  "noyield": true,
+  "predef": [
+    "angular"
+  ],
+  "quotmark": "single",
+  "sub": true,
+  "unused": true,
+  "undef": true,
+  "varstmt": true
+}
