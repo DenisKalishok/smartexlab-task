@@ -1,6 +1,6 @@
 angular
     .module('users')
-    .component('userDetails', {
-        templateUrl: 'src/users/details.template.html',
-        controller: 'UserDetailsController'
+    .component('userDetail', {
+        templateUrl: 'src/users/detail/detail.template.html',
+        controller: 'UserDetailController'
     });

@@ -1,7 +1,7 @@
 angular
     .module('users')
-    .controller('UserDetailsController', [UserDetailsController]);
+    .controller('UserDetailController', [UserDetailController]);
 
-function UserDetailsController() {
+function UserDetailController() {
 
 }

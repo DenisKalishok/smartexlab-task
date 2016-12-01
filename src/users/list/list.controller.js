@@ -1,7 +1,7 @@
 angular
     .module('users')
-    .controller('UserListController', [controller]);
+    .controller('UserListController', [UserListController]);
 
-function controller() {
+function UserListController() {
 
 }
