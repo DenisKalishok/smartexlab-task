@@ -21,9 +21,9 @@ const jshint = require('gulp-jshint');
 /**
  * Parameters
  */
-const BUILD_TASK = 'build-task';
-const DEV_TASK = 'dev-task';
-const LINT_TASK = 'lint-task';
+const BUILD_TASK = 'build';
+const DEV_TASK = 'dev';
+const LINT_TASK = 'lint';
 
 const DIST_PATH = 'dist';
 const VENDOR_PATH = 'bower_components';
@@ -76,6 +76,7 @@ const APP_CSS_FILES = [`${SCRIPT_PATH}/**/*.scss`];
 /**
  * Tasks
  */
+gulp.task('default', [DEV_TASK]);
 gulp.task('clean', clean.bind(null, DIST_PATH));
 gulp.task('build:vendor-script', buildVendorScript);
 gulp.task('build:app-script', buildAppScript);
@@ -101,14 +102,6 @@ gulp.task(BUILD_TASK, ['clean'], function () {
 gulp.task(DEV_TASK, [BUILD_TASK], function () {
     sequence('watch');
 });
-
-/**
- * Global tasks
- **/
-gulp.task('default', [DEV_TASK]);
-gulp.task('dev', [DEV_TASK]);
-gulp.task('build', [BUILD_TASK]);
-gulp.task('lint', [LINT_TASK]);
 
 
 /**
@@ -153,7 +146,7 @@ function buildAppScript() {
     return merge
         .apply(null, tasks)
         .pipe(concat(APP_SCRIPT_FILE))
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(DIST_PATH));
 }
 
@@ -174,7 +167,7 @@ function watch() {
 
 function lint() {
     return gulp
-        .src(APP_CSS_FILES.concat(SCRIPT_FILES))
+        .src(SCRIPT_FILES)
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'));
 }
