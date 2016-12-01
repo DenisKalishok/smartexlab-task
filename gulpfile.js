@@ -12,6 +12,9 @@ const uglify = require('gulp-uglify');
 const minifyHTML = require('gulp-minify-html');
 const merge = require('merge2');
 const sequence = require('run-sequence');
+const autoprefixer = require('autoprefixer');
+const postcss = require('gulp-postcss');
+const sass = require('gulp-sass');
 
 
 /**
@@ -25,7 +28,15 @@ const VENDOR_PATH = 'bower_components';
 const SCRIPT_PATH = 'src';
 const VENDOR_SCRIPT_FILE = 'vendor.js';
 const APP_SCRIPT_FILE = 'script.js';
+const VENDOR_CSS_FILE = 'vendor.css';
+const APP_CSS_FILE = 'app.css';
 const TEMPLATES_MASK = `${SCRIPT_PATH}/**/*.template.html`;
+
+const SASS_OPTIONS = {
+    outputStyle: 'compressed',
+    precision: 2,
+    sourceComments: false
+};
 
 const VENDOR_FILES = [
     `${VENDOR_PATH}/tether/dist/js/tether.min.js`,
@@ -47,15 +58,23 @@ const SCRIPT_FILES = [
     `${SCRIPT_PATH}/app.module.js`
 ];
 
+const VENDOR_CSS_FILES = [
+    `${VENDOR_PATH}/normalize.css/normalize.css`,
+    `${VENDOR_PATH}/bootstrap/dist/css/bootstrap.min.css`,
+    `${VENDOR_PATH}/bootstrap/dist/css/bootstrap-grid.min.css`
+];
+
+const APP_CSS_FILES = [`${SCRIPT_PATH}/**/*.scss`];
+
 
 /**
  * Tasks
  */
-gulp.task('clean', function () {
-    return clean(DIST_PATH);
-});
+gulp.task('clean', clean.bind(null, DIST_PATH));
 gulp.task('build:vendor-script', buildVendorScript);
 gulp.task('build:app-script', buildAppScript);
+gulp.task('build:vendor-css', buildCss.bind(null, VENDOR_CSS_FILE, VENDOR_CSS_FILES));
+gulp.task('build:app-css', buildCss.bind(null, APP_CSS_FILE, APP_CSS_FILES));
 gulp.task('copy:index', copy.bind(null, 'index.html'));
 gulp.task('copy:favicon', copy.bind(null, 'favicon.ico'));
 
@@ -63,6 +82,8 @@ gulp.task(DEV_TASK, ['clean'], function () {
     sequence(
         'build:vendor-script',
         'build:app-script',
+        'build:vendor-css',
+        'build:app-css',
         'copy:index',
         'copy:favicon'
     );
@@ -120,3 +141,12 @@ function buildAppScript() {
         .pipe(uglify())
         .pipe(gulp.dest(DIST_PATH));
 }
+
+function buildCss(fileName, cssFileList) {
+    return gulp
+        .src(cssFileList, {base: '.'})
+        .pipe(concat(fileName))
+        .pipe(sass(SASS_OPTIONS))
+        .pipe(postcss([autoprefixer({browsers: ['last 2 version']})]))
+        .pipe(gulp.dest(DIST_PATH));
+};
