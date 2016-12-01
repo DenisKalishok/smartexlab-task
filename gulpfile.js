@@ -30,6 +30,7 @@ const VENDOR_SCRIPT_FILE = 'vendor.js';
 const APP_SCRIPT_FILE = 'script.js';
 const VENDOR_CSS_FILE = 'vendor.css';
 const APP_CSS_FILE = 'app.css';
+const INDEX_FILE = 'index.html';
 const TEMPLATES_MASK = `${SCRIPT_PATH}/**/*.template.html`;
 
 const SASS_OPTIONS = {
@@ -50,11 +51,11 @@ const VENDOR_FILES = [
 ];
 
 const SCRIPT_FILES = [
-    `${SCRIPT_PATH}/users/user.module.js`,
-    `${SCRIPT_PATH}/users/list/list.controller.js`,
-    `${SCRIPT_PATH}/users/list/list.component.js`,
-    `${SCRIPT_PATH}/users/detail/detail.controller.js`,
-    `${SCRIPT_PATH}/users/detail/detail.component.js`,
+    // users
+    `${SCRIPT_PATH}/users/**/*.module.js`,
+    `${SCRIPT_PATH}/users/**/*.controller.js`,
+    `${SCRIPT_PATH}/users/**/*.component.js`,
+    // app run module
     `${SCRIPT_PATH}/app.module.js`
 ];
 
@@ -75,10 +76,11 @@ gulp.task('build:vendor-script', buildVendorScript);
 gulp.task('build:app-script', buildAppScript);
 gulp.task('build:vendor-css', buildCss.bind(null, VENDOR_CSS_FILE, VENDOR_CSS_FILES));
 gulp.task('build:app-css', buildCss.bind(null, APP_CSS_FILE, APP_CSS_FILES));
-gulp.task('copy:index', copy.bind(null, 'index.html'));
+gulp.task('copy:index', copy.bind(null, INDEX_FILE));
 gulp.task('copy:favicon', copy.bind(null, 'favicon.ico'));
+gulp.task('watch', watch);
 
-gulp.task(DEV_TASK, ['clean'], function () {
+gulp.task(BUILD_TASK, ['clean'], function () {
     sequence(
         'build:vendor-script',
         'build:app-script',
@@ -89,11 +91,16 @@ gulp.task(DEV_TASK, ['clean'], function () {
     );
 });
 
+gulp.task(DEV_TASK, [BUILD_TASK], function () {
+    sequence('watch');
+});
+
 /**
  * Global tasks
  **/
 gulp.task('default', [DEV_TASK]);
-gulp.task('build', [DEV_TASK]);
+gulp.task('dev', [DEV_TASK]);
+gulp.task('build', [BUILD_TASK]);
 
 
 /**
@@ -149,4 +156,10 @@ function buildCss(fileName, cssFileList) {
         .pipe(sass(SASS_OPTIONS))
         .pipe(postcss([autoprefixer({browsers: ['last 2 version']})]))
         .pipe(gulp.dest(DIST_PATH));
-};
+}
+
+function watch() {
+    gulp.watch(APP_CSS_FILES, ['build:app-css']);
+    gulp.watch(SCRIPT_FILES.concat(TEMPLATES_MASK), ['build:app-script']);
+    gulp.watch(INDEX_FILE, ['copy:index']);
+}
