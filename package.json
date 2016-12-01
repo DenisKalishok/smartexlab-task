@@ -6,7 +6,9 @@
   "keywords": [],
   "scripts": {
     "postinstall": "bower install",
-    "build": "gulp build"
+    "build": "gulp build",
+    "dev": "gulp dev",
+    "lint": "gulp lint"
   },
   "dependencies": {},
   "devDependencies": {

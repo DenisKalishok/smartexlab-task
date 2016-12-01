@@ -15,6 +15,7 @@ const sequence = require('run-sequence');
 const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const sass = require('gulp-sass');
+const jshint = require('gulp-jshint');
 
 
 /**
@@ -22,6 +23,7 @@ const sass = require('gulp-sass');
  */
 const BUILD_TASK = 'build-task';
 const DEV_TASK = 'dev-task';
+const LINT_TASK = 'lint-task';
 
 const DIST_PATH = 'dist';
 const VENDOR_PATH = 'bower_components';
@@ -79,9 +81,11 @@ gulp.task('build:app-css', buildCss.bind(null, APP_CSS_FILE, APP_CSS_FILES));
 gulp.task('copy:index', copy.bind(null, INDEX_FILE));
 gulp.task('copy:favicon', copy.bind(null, 'favicon.ico'));
 gulp.task('watch', watch);
+gulp.task(LINT_TASK, lint);
 
 gulp.task(BUILD_TASK, ['clean'], function () {
     sequence(
+        'lint',
         'build:vendor-script',
         'build:app-script',
         'build:vendor-css',
@@ -101,6 +105,7 @@ gulp.task(DEV_TASK, [BUILD_TASK], function () {
 gulp.task('default', [DEV_TASK]);
 gulp.task('dev', [DEV_TASK]);
 gulp.task('build', [BUILD_TASK]);
+gulp.task('lint', [LINT_TASK]);
 
 
 /**
@@ -160,6 +165,13 @@ function buildCss(fileName, cssFileList) {
 
 function watch() {
     gulp.watch(APP_CSS_FILES, ['build:app-css']);
-    gulp.watch(SCRIPT_FILES.concat(TEMPLATES_MASK), ['build:app-script']);
+    gulp.watch(SCRIPT_FILES.concat(TEMPLATES_MASK), ['lint', 'build:app-script']);
     gulp.watch(INDEX_FILE, ['copy:index']);
+}
+
+function lint() {
+    return gulp
+        .src(APP_CSS_FILES.concat(SCRIPT_FILES))
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'));
 }
