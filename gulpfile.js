@@ -57,18 +57,15 @@ const SCRIPT_FILES = [
     `${SCRIPT_PATH}/request/**/*.module.js`,
     `${SCRIPT_PATH}/request/**/*.service.js`,
     `${SCRIPT_PATH}/request/**/*.controller.js`,
-    `${SCRIPT_PATH}/request/**/*.component.js`,
     // users
     `${SCRIPT_PATH}/users/**/*.module.js`,
     `${SCRIPT_PATH}/users/**/*.service.js`,
     `${SCRIPT_PATH}/users/**/*.controller.js`,
-    `${SCRIPT_PATH}/users/**/*.component.js`,
     // app run module
     `${SCRIPT_PATH}/app.module.js`
 ];
 
 const VENDOR_CSS_FILES = [
-    `${VENDOR_PATH}/normalize.css/normalize.css`,
     `${VENDOR_PATH}/bootstrap/dist/css/bootstrap.min.css`,
     `${VENDOR_PATH}/bootstrap/dist/css/bootstrap-grid.min.css`
 ];
@@ -156,7 +153,7 @@ function buildAppScript() {
     return merge
         .apply(null, tasks)
         .pipe(concat(APP_SCRIPT_FILE))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest(DIST_PATH));
 }
 
