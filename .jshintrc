@@ -5,7 +5,7 @@
   "curly": true,
   "devel": true,
   "eqeqeq": true,
-  "esversion": 6,
+  "esversion": 5,
   "expr": true,
   "forin": true,
   "immed": true,
@@ -26,6 +26,5 @@
   "quotmark": "single",
   "sub": true,
   "unused": true,
-  "undef": true,
-  "varstmt": true
+  "undef": true
 }

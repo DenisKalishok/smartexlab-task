@@ -2,7 +2,7 @@
 smartexlab test task for Javascript
 
 #Requirements
-- ECMAScript 6
+- ECMAScript 5
 - angular 1.5.x
 - node 4.6.x
 - npm 4.0.x

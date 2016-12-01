@@ -1,7 +1,17 @@
 angular
     .module('users')
-    .controller('UserListController', [UserListController]);
+    .controller('UserListController', [
+        'RequestService',
 
-function UserListController() {
+        UserListController
+    ]);
 
+function UserListController(RequestService) {
+    this.list = null;
+
+    RequestService
+        .getUsers()
+        .then(function (data) {
+            console.log(data);
+        });
 }

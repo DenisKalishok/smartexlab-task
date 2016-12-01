@@ -1,2 +1,4 @@
 angular
-    .module('users', []);
+    .module('users', [
+        'request'
+    ]);

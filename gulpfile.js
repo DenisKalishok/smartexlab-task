@@ -53,8 +53,14 @@ const VENDOR_FILES = [
 ];
 
 const SCRIPT_FILES = [
+    // request
+    `${SCRIPT_PATH}/request/**/*.module.js`,
+    `${SCRIPT_PATH}/request/**/*.service.js`,
+    `${SCRIPT_PATH}/request/**/*.controller.js`,
+    `${SCRIPT_PATH}/request/**/*.component.js`,
     // users
     `${SCRIPT_PATH}/users/**/*.module.js`,
+    `${SCRIPT_PATH}/users/**/*.service.js`,
     `${SCRIPT_PATH}/users/**/*.controller.js`,
     `${SCRIPT_PATH}/users/**/*.component.js`,
     // app run module
